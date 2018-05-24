@@ -16,5 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 
 urlpatterns = [
-    url(r'^', include('apps.logreg.urls'))
+    url(r'^', include('apps.logreg.urls')),
+    url(r'^doctor', include('apps.doctor.urls')),
+    url(r'^patient', include('apps.patient.urls'))
 ]
