@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'LoginRegistration.urls'
+ROOT_URLCONF = 'poggers.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'LoginRegistration.wsgi.application'
+WSGI_APPLICATION = 'poggers.wsgi.application'
 
 
 # Database

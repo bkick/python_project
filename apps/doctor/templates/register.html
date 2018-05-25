@@ -10,8 +10,7 @@
     	{% endfor %}
 	</ul>
 {% endif %}
-	<h1>Please register</h1>
-	<form action='/register/submit' method='post'>
+	<form action='register/submit' method='post'>
 		{%csrf_token%}
 		E-mail<input type='email' name='email'></input></br>
 		First Name<input type='text' name='first_name'></input></br>
@@ -20,5 +19,6 @@
 		Confirm Password<input type='password' name='pwd_conf'></br>
 		<input type='submit' value='submit'>
 	</form>
+	<a href='login'>Already have an account with us? Login here!</a>
 </body>
 </html>

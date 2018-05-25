@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class LogregConfig(AppConfig):
-    name = 'logreg'
+class DoctorConfig(AppConfig):
+    name = 'doctor'
