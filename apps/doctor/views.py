@@ -1,13 +1,13 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-from .models import *
+from .models import doctors
 
 import bcrypt
 def login(request):
-    return render(request, 'login.html')
+    return render(request, 'doctor/login.html')
 
 def register(request):
-    return render(request, 'register.html')
+    return render(request, 'doctor/register.html')
     
 def logsubmit(request):
     errors = doctors.objects.login_validator(request.POST)
@@ -43,7 +43,9 @@ def regsubmit(request):
 def dashboard(request):
     if 'doctor_id' in request.session:
         doctor=doctors.objects.get(id=request.session['doctor_id'])
-        return render(request, 'dashboard.html', doctor)
+        print("-----------------------------------------------------------------")
+        patients=Patient.objects.filter(doctor_id=request.session['doctor_id'])
+        return render(request, 'doctor/dashboard.html',{'doctor': doctor, 'patients':patients} )
     else:
         messages.error(request, 'you have to log in or register first')
         return redirect('/doctor/login')
@@ -51,7 +53,7 @@ def logout(request):
     request.session.clear()
     return redirect('/doctor/login')
 def edit(request):
-    return render(request, 'edit.html')
+    return render(request, 'doctor/edit.html')
 def submit(request):
     if request.method=='POST':
         print('im in the post', request.POST)
@@ -76,11 +78,11 @@ def submit(request):
         return redirect('/doctor/register')
 def patient(request, number):
     patient=patient.objects.get(id=number)
-    if len(entries.objects.filter(patient_id=number))>0
-        entries=entries.objects.get(patient_id=number)
-    else:
-        entries=""
-    return render(request, 'patient.html', {'patient':patient, 'entries':entries})
+   # if len(entries.objects.filter(patient_id=number))>0
+       # entries=entries.objects.get(patient_id=number)
+    #else:
+     #   entries=""
+    return render(request, 'doctor/patient.html', {'patient':patient, })
 
 
 

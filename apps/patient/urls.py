@@ -2,5 +2,14 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index)
+    url(r'^/$', views.index_html),
+    url(r'login_html$', views.login_html),
+    url(r'login_method$', views.login_method),
+    url(r'register_html$', views.register_html),
+    url(r'registration_method$', views.registration_method),
+    url(r'dashboard_html$', views.dashboard_html),
+    url(r'that_info_html$', views.that_info_html),
+    url(r'edit_profile_html$', views.edit_profile_html),
+    url(r'moreDetails$', views.moreDetails),
+    url(r'logout$', views.logout)
 ]

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'patient/css/main.css' %}">
+    <title>Register</title>
+</head>
+
+<body>
+    <hr> {% if messages %} {% for message in messages %}
+    <ul class="messages">
+        <li>
+            <small class="red form-text text-muted">{{ message }}</small>
+        </li>
+    </ul>
+    {% endfor %} {% endif %}
+    <hr>
+
+    <div class="register">
+        <h3>Register</h3>
+        <form action='/patient/registration_method' method='post'>
+            {% csrf_token %}
+            <!-- FIRST NAME -->
+            <div class="form-group">
+                First Name
+                <input type="text" name='first_name' class="form-control" placeholder="">
+            </div>
+
+            <!-- LAST NAME -->
+            <div class="form-group">
+                Last Name
+                <input type="text" name='last_name' class="form-control" placeholder="">
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group">
+                email
+                <input type="email" name='email' class="form-control" placeholder="">
+            </div>
+
+            <!-- DOB -->
+            <div class="form-group">
+                Birthday
+                <input type="date" name='bday' class="form-control" placeholder="">
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+                Password
+                <input type="password" name='password' class="form-control" placeholder="">
+            </div>
+
+            <!-- PW_CONFIRM -->
+            <div class="form-group">
+                Confirm Password
+                <input type="password" name='password_confirm' class="form-control" placeholder="">
+            </div>
+            <div class="form-group">
+                Weight
+                <input type="number" name="weight" class="form-control" placeholder="">
+            </div>
+            <div class="form-group">
+                Height
+                <input type="number" name="height" class="form-control" placeholder="">
+            </div>
+                <select name="doctor">select your doctor:
+                {% for doc in doctor %}
+                <option value="{{doc.id}}">{{doc.first_name}} {{doc.last_name}}</option>
+                {% endfor %}
+                </select>
+                
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <br>
+    </div>
+
+
+    
+</body>
+
+</html>

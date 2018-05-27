@@ -1,8 +1,9 @@
 from __future__ import unicode_literals
 from django.db import models
-from patient.models import *
+from apps.patient.models import *
 import bcrypt
 import re
+
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class UserManager(models.Manager):
     def edit_validator(self, postData):
@@ -54,4 +55,3 @@ class doctors(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     objects = UserManager()
-

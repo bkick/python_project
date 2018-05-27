@@ -23,7 +23,9 @@
 	<a href='/doctor/edit' style='position: absolute; top: 20px; right: 30px;font-size: 20px;'>Edit your profile</a>
 	<div class='patients'>
 		<h2>List of your current patients</h2>
-		
+		{% for patient in patients %}
+			<a href='/doctor/patient/{{patient.id}}'>{{patient.first_name}} {{patient.last_name}}</a>
+		{% endfor %}
 	</div>
 	
 	
