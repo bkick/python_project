@@ -1,6 +1,9 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
+from django.apps import apps
 from .models import doctors
+Patient = apps.get_model('patient', 'Patient')
+from django.contrib import messages
 
 import bcrypt
 def login(request):
