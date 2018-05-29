@@ -80,7 +80,7 @@ def submit(request):
             messages.error(request, 'you have to log in or register first')
         return redirect('/doctor/register')
 def patient(request, number):
-    patient=patient.objects.get(id=number)
+    patient=Patient.objects.get(id=number)
    # if len(entries.objects.filter(patient_id=number))>0
        # entries=entries.objects.get(patient_id=number)
     #else:

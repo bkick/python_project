@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+# from apps.doctors.models import *
 import re
 import bcrypt
 from bcrypt import checkpw
