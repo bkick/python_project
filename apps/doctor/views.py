@@ -3,7 +3,11 @@ from django.contrib import messages
 from django.apps import apps
 from .models import doctors
 Patient = apps.get_model('patient', 'Patient')
+entries = apps.get_model('patient', 'entries')
 from django.contrib import messages
+import time
+import datetime
+
 
 import bcrypt
 def login(request):
@@ -25,6 +29,9 @@ def logsubmit(request):
         request.session['name']=user1.first_name
         print(request.session['doctor_id'])
         return redirect('/doctor/dashboard')
+def home(request):
+    # request.session.clear()
+    return render(request, 'doctor/home.html')
 def regsubmit(request):
     errors = doctors.objects.basic_validator(request.POST)
     if len(errors)>0:
@@ -33,12 +40,20 @@ def regsubmit(request):
         return redirect('/doctor/register')
     # redirect the user back to the form to fix the errors
     else:
-        pwd_hash=bcrypt.hashpw(request.POST['pwd'].encode(), bcrypt.gensalt())
+        pwd_hash=bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
         user1=doctors.objects.create(
             first_name=request.POST['first_name'], 
             last_name=request.POST['last_name'], 
             email=request.POST['email'],
-            pwd_hash=pwd_hash
+            pwd_hash=pwd_hash,
+            dob=request.POST['bday'],
+            bio=request.POST['bio'],
+            zipcode=request.POST['zip'],
+            phone=request.POST['phone'],
+            address=request.POST['address'],
+            city=request.POST['city'],
+            state=request.POST['state'],
+            discipline=request.POST['disc']
         )
         request.session['doctor_id']=user1.id
         request.session['name']=user1.first_name
@@ -81,11 +96,8 @@ def submit(request):
         return redirect('/doctor/register')
 def patient(request, number):
     patient=Patient.objects.get(id=number)
-   # if len(entries.objects.filter(patient_id=number))>0
-       # entries=entries.objects.get(patient_id=number)
-    #else:
-     #   entries=""
-    return render(request, 'doctor/patient.html', {'patient':patient, })
-
-
-
+    doctor=doctors.objects.get(id=request.session['doctor_id'])
+    data=entries.objects.filter(patient_id=number).order_by("-created_at")
+    reventries=entries.objects.filter(patient_id=number)
+    age = int(datetime.date.today().strftime("%Y"))-int(patient.dob.year)
+    return render(request, 'doctor/patient.html', {'doctor':doctor, 'patient':patient, 'entries': data, "age": age, "reventries": reventries})

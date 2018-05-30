@@ -47,7 +47,13 @@ def registration_method(request):
                                 password=hashed_pw,
                                 weight=request.POST['weight'],
                                 height=request.POST['height'],
-                                doctor_id=request.POST['doctor'])
+                                doctor_id=request.POST['doctor'],
+                                address=request.POST['address'],
+                                city=request.POST['city'],
+                                state=request.POST['state'], 
+                                zipcode=request.POST['zip'], 
+                                phone=request.POST['phone'], 
+                                diabetes=int(request.POST['diabetes']))
             request.session['patient_id'] = Patient.objects.get(email=request.POST['email']).id
             request.session['patient_first_name'] = Patient.objects.get(email=request.POST['email']).first_name
             request.session['patient_last_name'] = Patient.objects.get(email=request.POST['email']).last_name
@@ -71,12 +77,14 @@ def dashboard_html(request):
     else:
         patient = Patient.objects.get(id=request.session['patient_id'])
         doctor = doctors.objects.get(id=patient.doctor_id)
-        return render(request, 'patient/patient_dashboard.html', {'doctor': doctor, 'patient':patient})
+        data = entries.objects.filter(patient_id=request.session['patient_id']).order_by("-created_at")
+        reventries = entries.objects.filter(patient_id=request.session['patient_id'])
+        if patient.diabetes==0: 
+             print("-"*50, "non diabetic")
+             return render(request, 'patient/patient_dashboard_non-diabetic.html', {'doctor': doctor, 'patient':patient, "entries":data, "reventries":reventries})
+        else:
+            return render(request, 'patient/patient_dashboard.html', {'doctor': doctor, 'patient':patient, "entries":data, "reventries": reventries})
 
-def update_health(request):
-    print('\n   --> update_health method <--')
-    # update db with current weight and height
-    return redirect('/patient/dashboard_html')
 
 def that_info_html(request):
     print('\n   --> info <--')
@@ -87,36 +95,28 @@ def edit_profile_html(request):
     patient = Patient.objects.get(id=request.session['patient_id'])
     return render(request, 'patient/edit_profile.html', {'patient': patient})
 
-def moreDetails(request):
-    print('\n   --> moreDetails html <--')
-    return render(request, 'patient/moreDetails.html')
-
-def moreDetails_method(request):
-    print('\n   --> moreDetails method <--')
-    if request.method == 'POST':
-            errors = Patient.objects.moreDetails_validator(request.POST)
-            if len(errors):
-                for key, value in errors.items():
-                    messages.error(request, value)
-                return redirect('/patient/moreDetails')
-            else:
-                p = Patient.objects.get(id=request.session['patient_id'])
-                p.address = request.POST['address']
-                p.address2 = request.POST['address2']
-                p.city = request.POST['city']
-                p.state = request.POST['state']
-                p.zipcode = request.POST['zip']
-                p.weight = request.POST['weight']
-                p.height = request.POST['height']
-                p.save()
-                return redirect('/patient/dashboard_html')
 
 
 def logout(request):
     print("\n======> Server > Logout")
     request.session.clear()
-    return redirect('/patient')
+    return redirect('/')
 
 def about(request):
     print('\n ======> seerver > about')
     return render(request, 'patient/about.html')
+def update_health(request):
+    errors = Patient.objects.health_validator(request.POST)
+    if len(errors):
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/patient/dashboard_html')
+    else:
+        entries.objects.create(bloodsugar=request.POST['bloodsugar'],
+                            systolic=request.POST['systolic'],
+                            diastolic=request.POST['diastolic'],
+                            heartrate=request.POST['heartrate'],
+                            patient_id=request.session['patient_id']
+                            )
+        print("-"*50, "proccessing")
+    return redirect('/patient/dashboard_html')

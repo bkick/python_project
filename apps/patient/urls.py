@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index_html),
+    url(r'^$', views.home),
     url(r'patient_landing$', views.patient_landing),
     url(r'home$', views.home),
     url(r'login_html$', views.login_html),
@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'dashboard_html$', views.dashboard_html),
     url(r'that_info_html$', views.that_info_html),
     url(r'edit_profile_html$', views.edit_profile_html),
-    url(r'moreDetails$', views.moreDetails),
     url(r'logout$', views.logout),
-    url(r'about$', views.about)
+    url(r'about$', views.about),
+    url(r'update_health$', views.update_health)
 ]

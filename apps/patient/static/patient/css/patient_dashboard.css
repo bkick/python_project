@@ -84,7 +84,7 @@ nav ul li a.active{
 
 
     div.content_update{
-        width: 30%;
+        width: 70%;
         margin: 10px auto;
     }
 
@@ -92,6 +92,7 @@ nav ul li a.active{
 section.table{
     width: 900px;
     margin: 30px auto;
+    min-height: 200px;
 }
 
 section.login_page{
@@ -105,4 +106,53 @@ section.registration_page{
 
 .messages_error{
     color: red;
+}
+
+/* input fields */
+div.left_table{
+    /* background-color: aqua; */
+    width: 65%;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.right_input{
+    /* background-color: #E2472F; */
+    width: 30%;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: top;
+}
+
+table.table{
+    width: 80%;
+    margin: 10px auto;
+}
+
+.green{
+    background-color: #a6cf3a;
+}
+.yellow{
+    background-color: #ffed34;
+}
+.orange{
+    background-color: #f7b632;
+}
+
+.red{
+    background-color: #ba3b23;
+    color: white;
+}
+
+.hypertension{
+    background-color: #9a2b1b;
+    color: white;
+}
+
+div#chartdiv{
+    width: 80%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    /* margin-left: 40px; */
 }

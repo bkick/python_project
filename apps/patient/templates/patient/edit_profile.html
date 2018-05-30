@@ -22,7 +22,7 @@
                 <img src="{% static 'patient/images/logo_full_hor.png' %}" /> </div>
             <ul>
                 <li>
-                    <a href='/dashboard_html'>Back</a> 
+                    <a href='#' onclick="history.back()">Back</a> 
                 </li>
                 <li>
                     <a href="/patient/about">About</a>
@@ -41,7 +41,6 @@
             <div class='main_login'>
                 <div class="login">
                     <h3>Update {{patient.first_name}} {{patient.last_name}}'s info</h3>
-                    <h5>id= {{patient.id}}</h5>
                     <hr> 
                     {% if messages %} 
                     {% for message in messages %}
